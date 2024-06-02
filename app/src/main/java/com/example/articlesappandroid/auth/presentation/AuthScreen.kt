@@ -30,6 +30,7 @@ import com.example.articlesappandroid.auth.application.AuthViewModel
 import com.example.articlesappandroid.auth.presentation.pages.LoginPage
 import com.example.articlesappandroid.auth.presentation.pages.RegisterPage
 import com.example.articlesappandroid.constants.Dim
+import kotlinx.coroutines.coroutineScope
 
 @Composable
 fun AuthScreen() {
