@@ -10,19 +10,16 @@ import kotlinx.coroutines.launch
 
 class AppStartupViewModel : ViewModel() {
 
-        private val _state = MutableStateFlow<AppStartupState>(AppStartupState.INITIAL)
-        val state: StateFlow<AppStartupState> = _state
+    private val _state = MutableStateFlow(AppStartupState.INITIAL)
+    val state: StateFlow<AppStartupState> = _state
 
     init {
         initializeApp()
     }
 
-    private fun initializeApp(){
-        viewModelScope.launch{
-            //TODO initialize user here
-            delay(2000)
-            val nextState = AppStartupState.UNAUTHORIZED
-            _state.value = nextState
+    private fun initializeApp() {
+        viewModelScope.launch {
+            _state.value = AppStartupState.UNAUTHORIZED
         }
     }
 }
