@@ -17,11 +17,13 @@ fun ArticlesInput(
     value: String,
     hint: String,
     obscure: Boolean = false,
+    isError: Boolean = false,
     onValueChange: (String) -> Unit,
 ) {
     OutlinedTextField(
         modifier = Modifier
-            .fillMaxWidth().padding(vertical = Dim.verticalPadding.dp),
+            .fillMaxWidth()
+            .padding(vertical = Dim.verticalPadding.dp),
         value = value,
         onValueChange = onValueChange,
         placeholder = { Text(text = hint) },
@@ -30,7 +32,7 @@ fun ArticlesInput(
             PasswordVisualTransformation()
         } else {
             VisualTransformation.None
-
         },
+        isError = isError
     )
 }
