@@ -1,4 +1,4 @@
-package com.example.articlesappandroid.appstartup.domain
+package com.example.articlesappandroid.appstartup.application
 
 enum class AppStartupState {
     INITIAL,

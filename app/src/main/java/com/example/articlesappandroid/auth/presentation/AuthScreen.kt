@@ -24,6 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.articlesappandroid.auth.application.AuthViewModel
 import com.example.articlesappandroid.auth.presentation.pages.LoginPage
 import com.example.articlesappandroid.auth.presentation.pages.RegisterPage
 import com.example.articlesappandroid.constants.Dim
@@ -33,6 +36,9 @@ fun AuthScreen() {
     val focusManager = LocalFocusManager.current
     var isLogin by remember { mutableStateOf(value = true) }
     val interactionSource = remember { MutableInteractionSource() }
+    val viewModel: AuthViewModel = viewModel()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
     Scaffold(modifier = Modifier.clickable(
         interactionSource = interactionSource,
         indication = null

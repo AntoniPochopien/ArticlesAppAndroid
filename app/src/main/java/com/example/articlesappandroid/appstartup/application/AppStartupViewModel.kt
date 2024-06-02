@@ -2,8 +2,6 @@ package com.example.articlesappandroid.appstartup.application
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.articlesappandroid.appstartup.domain.AppStartupState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
