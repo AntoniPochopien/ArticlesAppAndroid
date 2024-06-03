@@ -7,7 +7,8 @@ import com.example.articlesappandroid.common.domain.User
 
 class AuthRepository:IAuthRepository {
     override suspend fun login(username: String, password: String): Either<Failure, User> {
-        TODO("Not yet implemented")
+        println("repo")
+        return Either.Left(Failure.Forbidden)
     }
 
     override suspend fun register(username: String, password: String): Either<Failure, Unit> {

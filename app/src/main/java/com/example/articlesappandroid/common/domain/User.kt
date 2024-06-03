@@ -10,6 +10,8 @@ data class User (
     val accessToken:String,
 ){
     companion object {
+        fun none() = User(id = "", username = "", accessToken = "")
+
         fun fromJson(jsonString: String): User {
             return Json.decodeFromString(jsonString)
         }

@@ -26,9 +26,11 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.articlesappandroid.ArticlesApp
 import com.example.articlesappandroid.auth.application.AuthViewModel
 import com.example.articlesappandroid.auth.presentation.pages.LoginPage
 import com.example.articlesappandroid.auth.presentation.pages.RegisterPage
+import com.example.articlesappandroid.common.helpers.viewModelFactory
 import com.example.articlesappandroid.constants.Dim
 import kotlinx.coroutines.coroutineScope
 
@@ -37,7 +39,11 @@ fun AuthScreen() {
     val focusManager = LocalFocusManager.current
     var isLogin by remember { mutableStateOf(value = true) }
     val interactionSource = remember { MutableInteractionSource() }
-    val viewModel: AuthViewModel = viewModel()
+    val viewModel = viewModel<AuthViewModel>(
+        factory =  viewModelFactory {
+            AuthViewModel(ArticlesApp.di.authRepository)
+        }
+    )
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(modifier = Modifier.clickable(
@@ -58,12 +64,19 @@ fun AuthScreen() {
             Column {
                 if (isLogin) {
                     LoginPage(
+                        onLogin = { username, password ->
+                            viewModel.login(username, password)
+                        },
                         onModeChange = {
                             isLogin = !isLogin
                         }
                     )
                 } else {
-                    RegisterPage(onModeChange = {
+                    RegisterPage(
+                        onRegister = {
+
+                        },
+                        onModeChange = {
                         isLogin = !isLogin
                     })
                 }

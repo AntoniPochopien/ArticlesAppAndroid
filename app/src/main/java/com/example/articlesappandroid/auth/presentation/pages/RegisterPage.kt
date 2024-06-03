@@ -14,6 +14,7 @@ import com.example.articlesappandroid.common.composables.ArticlesInput
 
 @Composable
 fun RegisterPage(
+    onRegister: () -> Unit,
     onModeChange: () -> Unit
 ){
     var username by remember { mutableStateOf(value = "") }

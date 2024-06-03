@@ -14,6 +14,7 @@ import com.example.articlesappandroid.common.composables.ArticlesInput
 
 @Composable
 fun LoginPage(
+    onLogin: (String, String) -> Unit,
     onModeChange: () -> Unit
 ) {
     var username by remember { mutableStateOf(value = "") }
@@ -38,7 +39,7 @@ fun LoginPage(
             passwordError = it.isEmpty()
         }
         Button(onClick = {
-            //TODO logIn user
+            onLogin(username, password)
         }) {
             Text(
                 text =
