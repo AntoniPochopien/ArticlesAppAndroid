@@ -26,16 +26,19 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.articlesappandroid.ArticlesApp
+import com.example.articlesappandroid.auth.application.AuthState
 import com.example.articlesappandroid.auth.application.AuthViewModel
 import com.example.articlesappandroid.auth.presentation.pages.LoginPage
 import com.example.articlesappandroid.auth.presentation.pages.RegisterPage
 import com.example.articlesappandroid.common.helpers.viewModelFactory
 import com.example.articlesappandroid.constants.Dim
+import com.example.articlesappandroid.navigation.DashboardRoute
 import kotlinx.coroutines.coroutineScope
 
 @Composable
-fun AuthScreen() {
+fun AuthScreen(navController: NavController) {
     val focusManager = LocalFocusManager.current
     var isLogin by remember { mutableStateOf(value = true) }
     val interactionSource = remember { MutableInteractionSource() }
@@ -45,6 +48,10 @@ fun AuthScreen() {
         }
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    if(state == AuthState.Authorized){
+        navController.navigate(DashboardRoute)
+    }
 
     Scaffold(modifier = Modifier.clickable(
         interactionSource = interactionSource,

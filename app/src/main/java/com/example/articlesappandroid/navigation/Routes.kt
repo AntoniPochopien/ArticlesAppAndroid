@@ -3,7 +3,10 @@ package com.example.articlesappandroid.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-object AppStartupScreenRoute
+object AppStartupRoute
 
 @Serializable
-object AuthScreenRoute
+object AuthRoute
+
+@Serializable
+object DashboardRoute

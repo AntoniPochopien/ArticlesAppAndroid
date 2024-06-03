@@ -7,7 +7,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.articlesappandroid.appstartup.application.AppStartupViewModel
 import com.example.articlesappandroid.appstartup.application.AppStartupState
-import com.example.articlesappandroid.navigation.AuthScreenRoute
+import com.example.articlesappandroid.navigation.AuthRoute
 
 
 @Composable
@@ -24,7 +24,7 @@ fun AppStartupScreen(navController: NavController) {
         }
 
         AppStartupState.UNAUTHORIZED -> {
-            navController.navigate(AuthScreenRoute)
+            navController.navigate(AuthRoute)
         }
     }
 }

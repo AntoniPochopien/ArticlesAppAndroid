@@ -17,8 +17,8 @@ class AuthViewModel(
 
     fun login(username:String, password:String) {
         viewModelScope.launch {
-            val x = authRepository.login(username, password);
-            x.fold(left = {
+            val result = authRepository.login(username, password);
+            result.fold(left = {
                 _state.value = AuthState.Error(it)
             }, right = {
                 authenticatedUser.updateUser(it)
