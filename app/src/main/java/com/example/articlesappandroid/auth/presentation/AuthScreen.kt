@@ -41,7 +41,7 @@ fun AuthScreen() {
     val interactionSource = remember { MutableInteractionSource() }
     val viewModel = viewModel<AuthViewModel>(
         factory =  viewModelFactory {
-            AuthViewModel(ArticlesApp.di.authRepository)
+            AuthViewModel(ArticlesApp.di.authRepository, ArticlesApp.di.authenticatedUser)
         }
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
