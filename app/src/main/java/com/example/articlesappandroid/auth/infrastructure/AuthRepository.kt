@@ -1,5 +1,6 @@
 package com.example.articlesappandroid.auth.infrastructure
 
+import android.util.Log
 import com.example.articlesappandroid.auth.domain.IAuthRepository
 import com.example.articlesappandroid.common.domain.Either
 import com.example.articlesappandroid.common.domain.Failure
@@ -10,7 +11,7 @@ import com.example.articlesappandroid.common.retrofit.RetrofitInstance
 class AuthRepository(private val retrofitInstance: RetrofitInstance):IAuthRepository {
     override suspend fun login(username: String, password: String): Either<Failure, User> {
         try{
-            val response = retrofitInstance.api.login(LoginRequest(username, password))
+            val response = retrofitInstance.api.login(AuthRequest(username, password))
             return ErrorHandler.getFailureFromStatusCode(response.code(), "login").fold(
                 left = {
                     Either.Left(it)
@@ -21,15 +22,41 @@ class AuthRepository(private val retrofitInstance: RetrofitInstance):IAuthReposi
                 }
             )
         }catch (e:Exception){
+            Log.v("login","login unexpected error")
             return Either.Left(Failure.Unexpected)
         }
     }
 
     override suspend fun register(username: String, password: String): Either<Failure, Unit> {
-        TODO("Not yet implemented")
+        try{
+            val response = retrofitInstance.api.register(AuthRequest(username, password))
+            return ErrorHandler.getFailureFromStatusCode(response.code(), "register")
+        }catch (e:Exception){
+            Log.v("register","register unexpected error")
+            return Either.Left(Failure.Unexpected)
+        }
     }
 
-    override suspend fun checkUsername(login: String): Either<Failure, Unit> {
-        TODO("Not yet implemented")
+    override suspend fun checkUsername(username: String): Either<Failure, Unit> {
+        try{
+            val response = retrofitInstance.api.checkUsername(username)
+            println(response.raw())
+            return ErrorHandler.getFailureFromStatusCode(response.code(), "checkUsername").fold(
+                left = {
+                        Either.Left(it)
+                },
+                right = {
+                    val exist = response.body()!!["exist"] as Boolean
+                    if(exist){
+                        Either.Left(Failure.NotUnique)
+                    }else{
+                        Either.Right(Unit)
+                    }
+                }
+            )
+        }catch(e:Exception){
+            Log.v("checkUsername","checkUsername unexpected error")
+            return Either.Left(Failure.Unexpected)
+        }
     }
 }

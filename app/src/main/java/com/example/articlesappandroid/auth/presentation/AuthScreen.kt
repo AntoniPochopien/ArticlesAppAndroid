@@ -51,6 +51,8 @@ fun AuthScreen(navController: NavController) {
 
     if(state == AuthState.Authorized){
         navController.navigate(DashboardRoute)
+    }else if(state == AuthState.RegisterSuccess){
+        isLogin = true
     }
 
     Scaffold(modifier = Modifier.clickable(
@@ -71,6 +73,7 @@ fun AuthScreen(navController: NavController) {
             Column {
                 if (isLogin) {
                     LoginPage(
+                        state = state,
                         onLogin = { username, password ->
                             viewModel.login(username, password)
                         },
@@ -80,9 +83,8 @@ fun AuthScreen(navController: NavController) {
                     )
                 } else {
                     RegisterPage(
-                        onRegister = {
-
-                        },
+                        viewModel = viewModel,
+                        state = state,
                         onModeChange = {
                         isLogin = !isLogin
                     })

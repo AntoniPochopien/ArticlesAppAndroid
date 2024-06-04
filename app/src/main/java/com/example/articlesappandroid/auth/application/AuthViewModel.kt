@@ -17,6 +17,7 @@ class AuthViewModel(
 
     fun login(username:String, password:String) {
         viewModelScope.launch {
+            _state.value = AuthState.Loading
             val result = authRepository.login(username, password);
             result.fold(left = {
                 _state.value = AuthState.Error(it)
@@ -27,4 +28,27 @@ class AuthViewModel(
         }
     }
 
+    fun register(username:String, password:String){
+        viewModelScope.launch {
+            _state.value = AuthState.Loading
+            val result = authRepository.register(username, password)
+            result.fold(left = {
+                _state.value = AuthState.Error(it)
+            }, right = {
+                _state.value = AuthState.RegisterSuccess
+            })
+        }
+    }
+
+    fun checkUsername(username:String){
+        viewModelScope.launch {
+            _state.value = AuthState.Loading
+            val result = authRepository.checkUsername(username)
+            result.fold(left = {
+                _state.value = AuthState.Error(it)
+            }, right = {
+                _state.value = AuthState.Initial
+            })
+        }
+    }
 }
