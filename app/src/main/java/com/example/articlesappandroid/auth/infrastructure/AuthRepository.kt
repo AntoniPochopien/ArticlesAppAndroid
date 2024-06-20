@@ -40,7 +40,6 @@ class AuthRepository(private val retrofitInstance: RetrofitInstance):IAuthReposi
     override suspend fun checkUsername(username: String): Either<Failure, Unit> {
         try{
             val response = retrofitInstance.api.checkUsername(username)
-            println(response.raw())
             return ErrorHandler.getFailureFromStatusCode(response.code(), "checkUsername").fold(
                 left = {
                         Either.Left(it)

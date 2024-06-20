@@ -81,4 +81,6 @@ dependencies {
     //Coroutines lifecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx.v281)
+    //Datastore
+    implementation(libs.androidx.datastore.preferences)
 }

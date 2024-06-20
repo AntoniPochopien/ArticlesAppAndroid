@@ -44,26 +44,32 @@ fun AuthScreen(navController: NavController) {
     var isLogin by remember { mutableStateOf(value = true) }
     val interactionSource = remember { MutableInteractionSource() }
     val viewModel = viewModel<AuthViewModel>(
-        factory =  viewModelFactory {
-            AuthViewModel(ArticlesApp.di.authRepository, ArticlesApp.di.authenticatedUser)
+        factory = viewModelFactory {
+            AuthViewModel(
+                ArticlesApp.di.authRepository,
+                ArticlesApp.di.localStorageRepository,
+                ArticlesApp.di.authenticatedUser
+            )
         }
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
     var previousState by remember { mutableStateOf<AuthState?>(null) }
 
-    if(state != previousState){
+    if (state != previousState) {
         previousState = state
-        when(state){
+        when (state) {
             AuthState.Authorized -> {
-                navController.navigate(DashboardRoute){
+                navController.navigate(DashboardRoute) {
                     popUpTo(AuthRoute) {
                         inclusive = true
                     }
                 }
             }
+
             AuthState.RegisterSuccess -> {
                 isLogin = true
             }
+
             else -> {}
         }
     }
@@ -100,8 +106,8 @@ fun AuthScreen(navController: NavController) {
                         viewModel = viewModel,
                         state = state,
                         onModeChange = {
-                        isLogin = !isLogin
-                    })
+                            isLogin = !isLogin
+                        })
                 }
             }
         }
