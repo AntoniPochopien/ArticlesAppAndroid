@@ -33,7 +33,8 @@ import com.example.articlesappandroid.auth.application.AuthViewModel
 import com.example.articlesappandroid.auth.presentation.pages.LoginPage
 import com.example.articlesappandroid.auth.presentation.pages.RegisterPage
 import com.example.articlesappandroid.common.helpers.viewModelFactory
-import com.example.articlesappandroid.constants.Dim
+import com.example.articlesappandroid.common.constants.Dim
+import com.example.articlesappandroid.navigation.AuthRoute
 import com.example.articlesappandroid.navigation.DashboardRoute
 import kotlinx.coroutines.coroutineScope
 
@@ -48,12 +49,25 @@ fun AuthScreen(navController: NavController) {
         }
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
+    var previousState by remember { mutableStateOf<AuthState?>(null) }
 
-    if(state == AuthState.Authorized){
-        navController.navigate(DashboardRoute)
-    }else if(state == AuthState.RegisterSuccess){
-        isLogin = true
+    if(state != previousState){
+        previousState = state
+        when(state){
+            AuthState.Authorized -> {
+                navController.navigate(DashboardRoute){
+                    popUpTo(AuthRoute) {
+                        inclusive = true
+                    }
+                }
+            }
+            AuthState.RegisterSuccess -> {
+                isLogin = true
+            }
+            else -> {}
+        }
     }
+
 
     Scaffold(modifier = Modifier.clickable(
         interactionSource = interactionSource,

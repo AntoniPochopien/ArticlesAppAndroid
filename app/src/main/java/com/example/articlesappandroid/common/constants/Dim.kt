@@ -1,4 +1,4 @@
-package com.example.articlesappandroid.constants
+package com.example.articlesappandroid.common.constants
 
 object Dim {
     const val screenPadding = 16.0

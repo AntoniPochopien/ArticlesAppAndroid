@@ -1,4 +1,4 @@
-package com.example.articlesappandroid.constants
+package com.example.articlesappandroid.common.constants
 
 object Api {
     const val url = //"" //prod

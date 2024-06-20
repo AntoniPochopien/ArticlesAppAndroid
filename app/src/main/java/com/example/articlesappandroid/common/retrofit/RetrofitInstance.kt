@@ -1,7 +1,7 @@
 package com.example.articlesappandroid.common.retrofit
 
 import com.example.articlesappandroid.auth.domain.IAuthApi
-import com.example.articlesappandroid.constants.Api
+import com.example.articlesappandroid.common.constants.Api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
