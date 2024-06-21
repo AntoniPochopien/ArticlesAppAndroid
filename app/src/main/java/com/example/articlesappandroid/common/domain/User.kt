@@ -14,9 +14,5 @@ data class User (
 ){
     companion object {
         fun none() = User(id = "", username = "", accessToken = "")
-
-        fun fromJson(jsonString: String): User {
-            return Json.decodeFromString(jsonString)
-        }
     }
 }
