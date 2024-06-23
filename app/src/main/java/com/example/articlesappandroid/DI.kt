@@ -7,6 +7,8 @@ import com.example.articlesappandroid.auth.infrastructure.AuthRepository
 import com.example.articlesappandroid.common.domain.AuthenticatedUser
 import com.example.articlesappandroid.common.domain.User
 import com.example.articlesappandroid.common.retrofit.RetrofitInstance
+import com.example.articlesappandroid.dashboard.domain.IDashboardRepository
+import com.example.articlesappandroid.dashboard.infrastructure.DashboardRepository
 import com.example.articlesappandroid.localstorage.domain.ILocalStorageRepository
 import com.example.articlesappandroid.localstorage.infrastructure.LocalStorageRepository
 
@@ -20,6 +22,10 @@ class DI (private val appContext: Context){
     }
     val localStorageRepository:ILocalStorageRepository by lazy{
         LocalStorageRepository(appContext)
+    }
+
+    val dashboardRepository: IDashboardRepository by lazy{
+        DashboardRepository(retrofit, authenticatedUser)
     }
     val authenticatedUser by lazy{
         AuthenticatedUser(User.none())

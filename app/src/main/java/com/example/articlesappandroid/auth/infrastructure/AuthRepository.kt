@@ -11,7 +11,7 @@ import com.example.articlesappandroid.common.retrofit.RetrofitInstance
 class AuthRepository(private val retrofitInstance: RetrofitInstance):IAuthRepository {
     override suspend fun login(username: String, password: String): Either<Failure, User> {
         try{
-            val response = retrofitInstance.api.login(AuthRequest(username, password))
+            val response = retrofitInstance.authApi.login(AuthRequest(username, password))
             return ErrorHandler.getFailureFromStatusCode(response.code(), "login").fold(
                 left = {
                     Either.Left(it)
@@ -22,24 +22,24 @@ class AuthRepository(private val retrofitInstance: RetrofitInstance):IAuthReposi
                 }
             )
         }catch (e:Exception){
-            Log.v("login","login unexpected error")
+            Log.v("login","login unexpected error $e")
             return Either.Left(Failure.Unexpected)
         }
     }
 
     override suspend fun register(username: String, password: String): Either<Failure, Unit> {
         try{
-            val response = retrofitInstance.api.register(AuthRequest(username, password))
+            val response = retrofitInstance.authApi.register(AuthRequest(username, password))
             return ErrorHandler.getFailureFromStatusCode(response.code(), "register")
         }catch (e:Exception){
-            Log.v("register","register unexpected error")
+            Log.v("register","register unexpected error $e")
             return Either.Left(Failure.Unexpected)
         }
     }
 
     override suspend fun checkUsername(username: String): Either<Failure, Unit> {
         try{
-            val response = retrofitInstance.api.checkUsername(username)
+            val response = retrofitInstance.authApi.checkUsername(username)
             return ErrorHandler.getFailureFromStatusCode(response.code(), "checkUsername").fold(
                 left = {
                         Either.Left(it)
@@ -54,7 +54,7 @@ class AuthRepository(private val retrofitInstance: RetrofitInstance):IAuthReposi
                 }
             )
         }catch(e:Exception){
-            Log.v("checkUsername","checkUsername unexpected error")
+            Log.v("checkUsername","checkUsername unexpected error $e")
             return Either.Left(Failure.Unexpected)
         }
     }

@@ -22,7 +22,7 @@ import com.example.articlesappandroid.navigation.DashboardRoute
 fun AppStartupScreen(navController: NavController) {
     val viewModel = viewModel<AppStartupViewModel>(
         factory = viewModelFactory {
-            AppStartupViewModel(ArticlesApp.di.localStorageRepository)
+            AppStartupViewModel(ArticlesApp.di.localStorageRepository, ArticlesApp.di.authenticatedUser)
         }
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
